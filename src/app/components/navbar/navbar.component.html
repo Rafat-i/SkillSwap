@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/jobs">SkillSwap</a>
+  </div>
+  <div class="navbar-links">
+    <ng-container *ngIf="isLoggedIn; else guestLinks">
+      <a routerLink="/jobs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Browse Jobs</a>
+      <a routerLink="/jobs/create" routerLinkActive="active">Post Job</a>
+      <a routerLink="/jobs/my-postings" routerLinkActive="active">My Postings</a>
+      <a routerLink="/my-bids" routerLinkActive="active">My Bids</a>
+      <a routerLink="/profile/me" routerLinkActive="active">Profile</a>
+      <button (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #guestLinks>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a routerLink="/register" routerLinkActive="active">Register</a>
+    </ng-template>
+  </div>
+</nav>
