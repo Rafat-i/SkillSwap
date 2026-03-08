@@ -30,4 +30,12 @@ export class JobService {
   createJob(title: string, description: string, budget: number, category: string): Observable<Job> {
     return this.http.post<Job>(`${this.BASE_URL}/jobs`, { title, description, budget, category });
   }
+
+  getJobById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/jobs/${id}`);
+  }
+
+  submitProposal(jobId: string, price: number, coverLetter: string): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/jobs/${jobId}/proposals`, { price, cover_letter: coverLetter });
+  }
 }

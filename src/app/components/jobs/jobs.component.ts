@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { JobService, Job } from '../../services/job.service'; 
+
 
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.scss'
 })
