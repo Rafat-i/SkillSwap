@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, User } from '../../services/auth.service';
+import { JobService } from '../../services/job.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,14 +12,28 @@ import { AuthService, User } from '../../services/auth.service';
 })
 export class ProfileComponent implements OnInit {
   user: User | null = null;
+  reviews: any[] = [];
   errorMessage = '';
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly jobService: JobService
+  ) {}
 
   ngOnInit(): void {
     this.authService.getMe().subscribe({
       next: (data) => {
         this.user = data;
+        this.authService.setUser(data);
+
+        this.jobService.getUserReviews(String(data.id)).subscribe({
+          next: (reviewData) => {
+            this.reviews = reviewData;
+          },
+          error: (err) => {
+            console.error('Failed to load your reviews:', err);
+          }
+        });
       },
       error: (err) => {
         this.errorMessage = err.error?.error || 'Failed to load profile.';

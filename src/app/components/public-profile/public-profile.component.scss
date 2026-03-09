@@ -2,11 +2,6 @@
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
-
-  h1 {
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-  }
 }
 
 .profile-card {
@@ -23,15 +18,8 @@
 
   .username {
     color: #7f8c8d;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-
-  .email {
-    color: #3498db;
-    font-size: 0.95rem;
     margin-bottom: 1rem;
-    display: block;
+    font-weight: 500;
   }
 
   .bio {
@@ -83,7 +71,7 @@
     .skill-tag {
       background: #ecf0f1;
       padding: 0.5rem 1rem;
-      border-radius: 20px; 
+      border-radius: 20px;
       font-size: 0.9rem;
       color: #2c3e50;
       font-weight: 500;

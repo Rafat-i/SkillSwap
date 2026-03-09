@@ -1,52 +1,118 @@
 <div class="job-details-page" *ngIf="job">
-  <div class="job-header">
+
+  <div class="job-header" *ngIf="!isEditing">
     <h1>{{ job.title }}</h1>
     <p><strong>Status:</strong> {{ job.status }}</p>
     <p><strong>Category:</strong> {{ job.category }}</p>
     <p><strong>Budget:</strong> ${{ job.budget }}</p>
+    
+    <p *ngIf="job.owner?.username">
+      <strong>Client:</strong> 
+      <a [routerLink]="['/user', job.owner.username]" style="color: #3498db; text-decoration: none; font-weight: bold; cursor: pointer;">View Client Profile</a>
+    </p>
+    
     <p class="description">{{ job.description }}</p>
+    
+    <button type="button" class="btn-edit" *ngIf="isOwner" (click)="toggleEdit()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+      Edit Job
+    </button>
   </div>
 
-  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
-  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
-  <div class="error-message" *ngIf="acceptError">{{ acceptError }}</div>
-  <div class="error-message" *ngIf="completeError">{{ completeError }}</div>
+  <div class="auth-container" *ngIf="isEditing">
+    <div class="auth-card" style="max-width: 600px; width: 100%;">
+      <h2>Edit Job</h2>
+      <div class="error-message" *ngIf="editError">{{ editError }}</div>
+      <form (ngSubmit)="saveEdit()">
+        <div class="form-group">
+          <label for="editTitle">Job Title</label>
+          <input type="text" id="editTitle" name="editTitle" [(ngModel)]="editData.title" required>
+        </div>
 
-  <div class="complete-section" *ngIf="job.status === 'in_progress' && (isOwner || isFreelancer)">
-    <button type="button" class="btn-complete" (click)="completeJob()">Complete Job</button>
-  </div>
+        <div class="form-group">
+          <label for="editCategory">Category</label>
+          <input type="text" id="editCategory" name="editCategory" [(ngModel)]="editData.category" required>
+        </div>
 
-  <div class="review-section" *ngIf="job.status === 'completed' && (isOwner || isFreelancer) && reviewTargetId && !hasReviewed">
-    <h2>Leave a Review</h2>
-    <p>Rate {{ reviewTargetName }} (1–5 stars)</p>
-    <div class="error-message" *ngIf="reviewError">{{ reviewError }}</div>
-    <div class="review-form">
-      <label for="rating">Rating:</label>
-      <select id="rating" [(ngModel)]="reviewRating">
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
-      </select>
-      <button type="button" class="btn-submit-review" (click)="submitReview()">Submit Review</button>
+        <div class="form-group">
+          <label for="editBudget">Budget ($)</label>
+          <input type="number" id="editBudget" name="editBudget" [(ngModel)]="editData.budget" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editStatus">Status</label>
+          <select id="editStatus" name="editStatus" [(ngModel)]="editData.status" required style="width: 100%; padding: 0.6rem 0.8rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem;">
+            <option value="open">Open</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="editDescription">Job Description</label>
+          <textarea id="editDescription" name="editDescription" [(ngModel)]="editData.description" required></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" style="flex: 1; margin-bottom: 0;">Save Changes</button>
+          <button type="button" style="flex: 1; background: #95a5a6; margin-bottom: 0;" (click)="toggleEdit()">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div class="proposals-section" *ngIf="isOwner && job.status === 'open' && proposals.length > 0">
+  <div class="error-message" *ngIf="errorMessage && !isEditing" style="margin-top: 1rem;">{{ errorMessage }}</div>
+  <div class="success-message" *ngIf="successMessage && !isEditing" style="margin-top: 1rem; color: #27ae60; font-weight: bold;">{{ successMessage }}</div>
+  <div class="error-message" *ngIf="acceptError && !isEditing" style="margin-top: 1rem;">{{ acceptError }}</div>
+  <div class="error-message" *ngIf="completeError && !isEditing" style="margin-top: 1rem;">{{ completeError }}</div>
+
+  <div class="complete-section" *ngIf="job.status === 'in_progress' && (isOwner || isFreelancer) && !isEditing" style="margin-top: 1rem;">
+    <button type="button" class="btn-complete" (click)="completeJob()" style="padding: 0.7rem 1.5rem; background: #8e44ad; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Complete Job</button>
+  </div>
+
+  <div class="review-section" *ngIf="job.status === 'completed' && (isOwner || isFreelancer) && reviewTargetId && !isEditing" style="margin-top: 2rem; padding: 1.5rem; background: #f9f9f9; border-radius: 8px;">
+    
+    <ng-container *ngIf="!hasReviewed; else reviewDone">
+      <h2>Leave a Review</h2>
+      <p>Rate {{ reviewTargetName }} (1–5 stars)</p>
+      <div class="error-message" *ngIf="reviewError">{{ reviewError }}</div>
+      <div class="review-form" style="margin-top: 1rem;">
+        <label for="rating" style="margin-right: 0.5rem; font-weight: 500;">Rating:</label>
+        <select id="rating" [(ngModel)]="reviewRating" style="padding: 0.4rem; border-radius: 4px; border: 1px solid #ccc;">
+          <option [value]="1">1</option>
+          <option [value]="2">2</option>
+          <option [value]="3">3</option>
+          <option [value]="4">4</option>
+          <option [value]="5">5</option>
+        </select>
+        <button type="button" class="btn-submit-review" (click)="submitReview()" style="margin-left: 1rem; padding: 0.5rem 1rem; background: #27ae60; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Submit Review</button>
+      </div>
+    </ng-container>
+
+    <ng-template #reviewDone>
+      <h2 style="color: #27ae60;">Review Submitted!</h2>
+      <p>You have successfully submitted your review for {{ reviewTargetName }}.</p>
+    </ng-template>
+
+  </div>
+
+  <div class="proposals-section" *ngIf="isOwner && job.status === 'open' && proposals.length > 0 && !isEditing" style="margin-top: 2rem;">
     <h2>Proposals</h2>
-    <div class="proposal-card" *ngFor="let p of proposals">
-      <p><strong>From:</strong> {{ getProposalUserName(p) }}</p>
+    <div class="proposal-card" *ngFor="let p of proposals" style="background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1rem;">
+      <p>
+        <strong>From:</strong> 
+        <a *ngIf="getFreelancerUsername(p)" [routerLink]="['/user', getFreelancerUsername(p)]" style="color: #3498db; text-decoration: none; font-weight: bold; cursor: pointer;">{{ getProposalUserName(p) }}</a>
+        <span *ngIf="!getFreelancerUsername(p)">{{ getProposalUserName(p) }}</span>
+      </p>
       <p><strong>Price:</strong> ${{ p.price }}</p>
       <p><strong>Cover letter:</strong> {{ p.cover_letter || p.message || '—' }}</p>
       <p><strong>Status:</strong> {{ p.status }}</p>
-      <button type="button" class="btn-accept" *ngIf="p.status === 'pending'" (click)="acceptProposal(p.id)">
+      <button type="button" class="btn-accept" *ngIf="p.status === 'pending'" (click)="acceptProposal(p.id)" style="margin-top: 1rem; padding: 0.5rem 1.5rem; background: #2ecc71; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
         Accept
       </button>
     </div>
   </div>
 
-  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner && !hasSubmittedProposal">
+  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner && !hasSubmittedProposal && !isEditing">
     <div class="auth-card">
       <h2>Submit a Proposal</h2>
 
@@ -66,13 +132,13 @@
     </div>
   </div>
 
-  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner && hasSubmittedProposal">
+  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner && hasSubmittedProposal && !isEditing">
     <div class="auth-card already-bid-card">
       <h2>Your Proposal</h2>
       <p>You've already submitted a proposal for this job.</p>
       <p><strong>Status:</strong> {{ myProposalStatus }}</p>
       <div class="error-message" *ngIf="withdrawError">{{ withdrawError }}</div>
-      <button type="button" class="btn-withdraw" *ngIf="myProposalStatus === 'pending'" (click)="withdrawProposal()">
+      <button type="button" class="btn-withdraw" *ngIf="myProposalStatus === 'pending'" (click)="withdrawProposal()" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
         Withdraw Proposal
       </button>
     </div>

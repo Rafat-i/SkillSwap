@@ -48,6 +48,10 @@ export class JobService {
     return this.http.get<any>(`${this.BASE_URL}/jobs/${id}`);
   }
 
+  updateJob(id: string, updates: any): Observable<any> {
+    return this.http.patch<any>(`${this.BASE_URL}/jobs/${id}`, updates);
+  }
+
   submitProposal(jobId: string, price: number, coverLetter: string): Observable<any> {
     return this.http.post<any>(`${this.BASE_URL}/jobs/${jobId}/proposals`, { price, cover_letter: coverLetter });
   }
@@ -78,5 +82,9 @@ export class JobService {
 
   withdrawProposal(proposalId: string): Observable<any> {
     return this.http.delete<any>(`${this.BASE_URL}/proposals/${proposalId}`);
+  }
+
+  getUserReviews(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.BASE_URL}/reviews/user/${userId}`);
   }
 }
