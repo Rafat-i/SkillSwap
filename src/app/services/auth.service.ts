@@ -39,6 +39,10 @@ export class AuthService {
     return this.http.get<User>(`${this.BASE_URL}/users/me`, { headers: new HttpHeaders(this.getAuthHeaders()) });
   }
 
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.BASE_URL}/users/${id}`, { headers: new HttpHeaders(this.getAuthHeaders()) });
+  }
+
   setToken(token: string) {
     localStorage.setItem('token', token);
   }

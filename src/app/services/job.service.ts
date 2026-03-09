@@ -14,14 +14,15 @@ export interface Job {
 }
 
 export interface Proposal {
-  id: number;
-  job_id: number;
-  user_id: number;
+  id: string;
+  job_id: string;
+  freelancer_id?: string;
   price: number;
   cover_letter?: string;
   message?: string;
   status: string;
-  user?: { id: number; username: string; name?: string };
+  user?: { id: string; username: string; name?: string };
+  job?: { id?: string; title?: string };
 }
 
 @Injectable({
@@ -59,7 +60,23 @@ export class JobService {
     return this.http.get<Proposal[]>(`${this.BASE_URL}/jobs/${jobId}/proposals`);
   }
 
-  acceptProposal(proposalId: number): Observable<any> {
+  acceptProposal(proposalId: string): Observable<any> {
     return this.http.patch<any>(`${this.BASE_URL}/proposals/${proposalId}/accept`, {});
+  }
+
+  completeJob(jobId: string): Observable<any> {
+    return this.http.patch<any>(`${this.BASE_URL}/jobs/${jobId}/complete`, {});
+  }
+
+  submitReview(jobId: string, targetId: string, rating: number): Observable<any> {
+    return this.http.post<any>(`${this.BASE_URL}/jobs/${jobId}/reviews`, { target_id: targetId, rating });
+  }
+
+  getMyBids(): Observable<Proposal[]> {
+    return this.http.get<Proposal[]>(`${this.BASE_URL}/proposals/my-bids`);
+  }
+
+  withdrawProposal(proposalId: string): Observable<any> {
+    return this.http.delete<any>(`${this.BASE_URL}/proposals/${proposalId}`);
   }
 }

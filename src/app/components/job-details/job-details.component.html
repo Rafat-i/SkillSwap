@@ -10,11 +10,33 @@
   <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
   <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
   <div class="error-message" *ngIf="acceptError">{{ acceptError }}</div>
+  <div class="error-message" *ngIf="completeError">{{ completeError }}</div>
+
+  <div class="complete-section" *ngIf="job.status === 'in_progress' && (isOwner || isFreelancer)">
+    <button type="button" class="btn-complete" (click)="completeJob()">Complete Job</button>
+  </div>
+
+  <div class="review-section" *ngIf="job.status === 'completed' && (isOwner || isFreelancer) && reviewTargetId && !hasReviewed">
+    <h2>Leave a Review</h2>
+    <p>Rate {{ reviewTargetName }} (1–5 stars)</p>
+    <div class="error-message" *ngIf="reviewError">{{ reviewError }}</div>
+    <div class="review-form">
+      <label for="rating">Rating:</label>
+      <select id="rating" [(ngModel)]="reviewRating">
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+      </select>
+      <button type="button" class="btn-submit-review" (click)="submitReview()">Submit Review</button>
+    </div>
+  </div>
 
   <div class="proposals-section" *ngIf="isOwner && job.status === 'open' && proposals.length > 0">
     <h2>Proposals</h2>
     <div class="proposal-card" *ngFor="let p of proposals">
-      <p><strong>From:</strong> {{ p.user?.username || 'User #' + p.user_id }}</p>
+      <p><strong>From:</strong> {{ getProposalUserName(p) }}</p>
       <p><strong>Price:</strong> ${{ p.price }}</p>
       <p><strong>Cover letter:</strong> {{ p.cover_letter || p.message || '—' }}</p>
       <p><strong>Status:</strong> {{ p.status }}</p>
@@ -24,7 +46,7 @@
     </div>
   </div>
 
-  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner">
+  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner && !hasSubmittedProposal">
     <div class="auth-card">
       <h2>Submit a Proposal</h2>
 
@@ -41,6 +63,18 @@
 
         <button type="submit">Submit Proposal</button>
       </form>
+    </div>
+  </div>
+
+  <div class="auth-container" *ngIf="job.status === 'open' && !isOwner && hasSubmittedProposal">
+    <div class="auth-card already-bid-card">
+      <h2>Your Proposal</h2>
+      <p>You've already submitted a proposal for this job.</p>
+      <p><strong>Status:</strong> {{ myProposalStatus }}</p>
+      <div class="error-message" *ngIf="withdrawError">{{ withdrawError }}</div>
+      <button type="button" class="btn-withdraw" *ngIf="myProposalStatus === 'pending'" (click)="withdrawProposal()">
+        Withdraw Proposal
+      </button>
     </div>
   </div>
 </div>

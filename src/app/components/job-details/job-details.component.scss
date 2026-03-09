@@ -68,6 +68,103 @@
       background: #219a52;
     }
   }
+
+  .complete-section {
+    margin-top: 1.5rem;
+  }
+
+  .btn-complete {
+    padding: 0.6rem 1.5rem;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:hover {
+      background: #2980b9;
+    }
+  }
+
+  .already-bid-card {
+    text-align: center;
+
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+
+    .btn-withdraw {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+
+      &:hover {
+        background: #c0392b;
+      }
+    }
+  }
+
+  .review-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    .review-form {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      label {
+        font-weight: 500;
+        color: #555;
+      }
+
+      select {
+        padding: 0.5rem 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+    }
+
+    .btn-submit-review {
+      padding: 0.5rem 1rem;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+
+      &:hover {
+        background: #219a52;
+      }
+    }
+  }
 }
 
 .auth-container {
