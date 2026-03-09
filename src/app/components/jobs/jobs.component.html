@@ -1,11 +1,13 @@
 <div class="jobs-page">
-  <h1>Jobs</h1>
+  <h1>Browse Jobs</h1>
 
   <div class="jobs-list">
-    <div class="job-card" *ngFor="let job of jobs">
+    <div class="job-card" *ngFor="let job of jobs" [routerLink]="['/jobs', job.id]" style="cursor: pointer;">
       <h2>{{ job.title }}</h2>
-      <p>{{ job.description }}</p>
+      <p class="category"><strong>Category:</strong> {{ job.category }}</p>
+      <p class="budget"><strong>Budget:</strong> ${{ job.budget }}</p>
+      <p class="description">{{ job.description }}</p>
+      <span class="status badge">Status: {{ job.status }}</span>
     </div>
   </div>
 </div>
-

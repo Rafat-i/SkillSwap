@@ -1,0 +1,33 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Post a New Job</h2>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Job Title</label>
+        <input type="text" id="title" name="title" [(ngModel)]="title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" [(ngModel)]="category" required>
+      </div>
+
+      <div class="form-group">
+        <label for="budget">Budget ($)</label>
+        <input type="number" id="budget" name="budget" [(ngModel)]="budget" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Job Description</label>
+        <textarea id="description" name="description" [(ngModel)]="description" required></textarea>
+      </div>
+
+      <button type="submit">Post Job</button>
+    </form>
+  </div>
+</div>
