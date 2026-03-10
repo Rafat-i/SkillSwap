@@ -1,17 +1,26 @@
-<div class="jobs-page">
+<div class="postings-page">
   <h1>My Postings</h1>
 
   <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 
   <div class="jobs-list">
-    <div class="job-card" *ngFor="let job of jobs" [routerLink]="['/jobs', job.id]" style="cursor: pointer;">
-      <h2>{{ job.title }}</h2>
-      <p class="category"><strong>Category:</strong> {{ job.category }}</p>
-      <p class="budget"><strong>Budget:</strong> ${{ job.budget }}</p>
+    <div class="job-card" *ngFor="let job of jobs" [routerLink]="['/jobs', job.id]">
+      
+      <div class="job-card-header">
+        <h2>{{ job.title }}</h2>
+        <span class="status-badge" [ngClass]="'status-' + job.status">{{ job.status }}</span>
+      </div>
+
+      <div class="job-meta">
+        <p class="category"><strong>Category:</strong> {{ job.category }}</p>
+        <p class="budget"><strong>Budget:</strong> ${{ job.budget }}</p>
+      </div>
+      
       <p class="description">{{ job.description }}</p>
-      <span class="status badge">Status: {{ job.status }}</span>
     </div>
   </div>
 
-  <p *ngIf="!errorMessage && jobs.length === 0" class="empty">You have not posted any jobs yet.</p>
+  <div class="empty-state" *ngIf="!errorMessage && jobs.length === 0">
+    <p>You have not posted any jobs yet.</p>
+  </div>
 </div>

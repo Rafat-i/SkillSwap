@@ -1,19 +1,23 @@
 <div class="job-details-page" *ngIf="job">
 
   <div class="job-header" *ngIf="!isEditing">
-    <h1>{{ job.title }}</h1>
-    <p><strong>Status:</strong> {{ job.status }}</p>
-    <p><strong>Category:</strong> {{ job.category }}</p>
-    <p><strong>Budget:</strong> ${{ job.budget }}</p>
+    <h1>
+      {{ job.title }} 
+      <span class="status-badge" [ngClass]="'status-' + job.status">{{ job.status }}</span>
+    </h1>
     
-    <p *ngIf="job.owner?.username">
-      <strong>Client:</strong> 
-      <a [routerLink]="['/user', job.owner.username]" style="color: #3498db; text-decoration: none; font-weight: bold; cursor: pointer;">View Client Profile</a>
-    </p>
+    <div class="meta-info">
+      <p><strong>Category:</strong> {{ job.category }}</p>
+      <p><strong>Budget:</strong> ${{ job.budget }}</p>
+      <p *ngIf="job.owner?.username">
+        <strong>Client:</strong> 
+        <a [routerLink]="['/user', job.owner.username]" style="color: #3498db; text-decoration: none; font-weight: bold; cursor: pointer;">@{{ job.owner.username }}</a>
+      </p>
+    </div>
     
     <p class="description">{{ job.description }}</p>
     
-    <button type="button" class="btn-edit" *ngIf="isOwner" (click)="toggleEdit()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+    <button type="button" class="btn-edit" *ngIf="isOwner" (click)="toggleEdit()">
       Edit Job
     </button>
   </div>
@@ -95,19 +99,25 @@
 
   </div>
 
-  <div class="proposals-section" *ngIf="isOwner && job.status === 'open' && proposals.length > 0 && !isEditing" style="margin-top: 2rem;">
+  <div class="proposals-section" *ngIf="isOwner && job.status === 'open' && proposals.length > 0 && !isEditing">
     <h2>Proposals</h2>
-    <div class="proposal-card" *ngFor="let p of proposals" style="background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1rem;">
+    <div class="proposal-card" *ngFor="let p of proposals">
+      
       <p>
         <strong>From:</strong> 
-        <a *ngIf="getFreelancerUsername(p)" [routerLink]="['/user', getFreelancerUsername(p)]" style="color: #3498db; text-decoration: none; font-weight: bold; cursor: pointer;">{{ getProposalUserName(p) }}</a>
-        <span *ngIf="!getFreelancerUsername(p)">{{ getProposalUserName(p) }}</span>
+        <span style="color: #2c3e50; font-weight: bold;">
+          Freelancer #{{ p.freelancer_id | slice:0:6 }}
+        </span>
       </p>
+      
       <p><strong>Price:</strong> ${{ p.price }}</p>
       <p><strong>Cover letter:</strong> {{ p.cover_letter || p.message || '—' }}</p>
-      <p><strong>Status:</strong> {{ p.status }}</p>
-      <button type="button" class="btn-accept" *ngIf="p.status === 'pending'" (click)="acceptProposal(p.id)" style="margin-top: 1rem; padding: 0.5rem 1.5rem; background: #2ecc71; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
-        Accept
+      <p>
+        <strong>Status:</strong> 
+        <span class="status-badge" [ngClass]="'status-' + p.status">{{ p.status }}</span>
+      </p>
+      <button type="button" class="btn-accept" *ngIf="p.status === 'pending'" (click)="acceptProposal(p.id)">
+        Accept Proposal
       </button>
     </div>
   </div>

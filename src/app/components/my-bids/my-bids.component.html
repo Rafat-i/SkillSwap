@@ -1,24 +1,34 @@
 <div class="bids-page">
-  <h1>My Bids</h1>
+  <h1>My Proposals</h1>
 
   <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 
   <div class="bids-list">
-    <div class="bid-card" *ngFor="let p of proposals" [routerLink]="['/jobs', p.job_id]" style="cursor: pointer;">
-      <h2>{{ p.job?.title || 'Job #' + p.job_id }}</h2>
-      <p><strong>Your price:</strong> ${{ p.price }}</p>
-      <p><strong>Cover letter:</strong> {{ p.cover_letter || p.message || '—' }}</p>
-      <span class="status badge">Status: {{ p.status }}</span>
-      <button
-        type="button"
-        class="btn-withdraw"
-        *ngIf="p.status === 'pending'"
-        (click)="withdrawProposal(p.id, $event)"
-      >
-        Withdraw
-      </button>
+    <div class="bid-card" *ngFor="let p of proposals" [routerLink]="['/jobs', p.job_id]">
+      
+      <div class="bid-card-header">
+        <h2>{{ p.job?.title || 'Job #' + p.job_id }}</h2>
+        <span class="status-badge" [ngClass]="'status-' + p.status">{{ p.status }}</span>
+      </div>
+
+      <div class="bid-meta">
+        <p class="price"><strong>Proposed Price:</strong> ${{ p.price }}</p>
+        <p class="cover-letter"><strong>Cover letter:</strong> {{ p.cover_letter || p.message || '—' }}</p>
+      </div>
+      
+      <div class="bid-actions" *ngIf="p.status === 'pending'">
+        <button 
+          type="button" 
+          class="btn-withdraw" 
+          (click)="withdrawProposal(p.id, $event)">
+          Withdraw Proposal
+        </button>
+      </div>
+      
     </div>
   </div>
 
-  <p *ngIf="!errorMessage && proposals.length === 0" class="empty">You have not submitted any proposals yet.</p>
+  <div class="empty-state" *ngIf="!errorMessage && proposals.length === 0">
+    <p>You have not submitted any proposals yet.</p>
+  </div>
 </div>

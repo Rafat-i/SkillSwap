@@ -20,7 +20,6 @@ export class JobDetailsComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
   proposals: Proposal[] = [];
-  freelancerNames: Record<string, string> = {};
   isOwner = false;
   isFreelancer = false;
   acceptError = '';
@@ -82,10 +81,6 @@ export class JobDetailsComponent implements OnInit {
         }
       });
     }
-  }
-
-  getFreelancerUsername(p: any): string {
-    return p.user?.username || p.username || '';
   }
 
   toggleEdit(): void {
@@ -163,22 +158,7 @@ export class JobDetailsComponent implements OnInit {
     this.jobService.getProposalsForJob(this.jobId).subscribe({
       next: (data) => {
         this.proposals = data;
-        this.freelancerNames = {};
-        data.forEach((p) => {
-          const fid = p.freelancer_id ?? (p as any).user_id;
-          if (fid) {
-            this.authService.getUserById(fid).subscribe({
-              next: (user) => {
-                this.freelancerNames[fid] = user.username || user.name || 'Freelancer';
-                this.cdr.markForCheck();
-              },
-              error: () => {
-                this.freelancerNames[fid] = 'Freelancer';
-                this.cdr.markForCheck();
-              }
-            });
-          }
-        });
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.errorMessage = err.error?.error || 'Failed to load proposals.';
@@ -187,14 +167,16 @@ export class JobDetailsComponent implements OnInit {
     });
   }
 
-  getProposalUserName(p: Proposal): string {
-    if (p.user?.username) return p.user.username;
+  getProposalUserName(p: any): string {
     if (p.user?.name) return p.user.name;
-    if ((p as any).username) return (p as any).username;
-    
-    const fid = p.freelancer_id ?? (p as any).user_id;
-    if (fid && this.freelancerNames[fid]) return this.freelancerNames[fid];
+    if (p.user?.username) return p.user.username;
+    if (p.freelancer?.name) return p.freelancer.name;
+    if (p.freelancer?.username) return p.freelancer.username;
     return 'Freelancer';
+  }
+
+  getFreelancerUsername(p: any): string {
+    return p.user?.username || p.freelancer?.username || '';
   }
 
   acceptProposal(proposalId: string): void {

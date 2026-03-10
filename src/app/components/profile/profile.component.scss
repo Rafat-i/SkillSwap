@@ -4,66 +4,74 @@
   margin: 0 auto;
 
   h1 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: #2c3e50;
+    font-size: 2rem;
   }
 }
 
 .profile-card {
-  background: #fff;
-  padding: 2rem;
+  background: #ffffff;
+  padding: 2.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eaeaea;
+  margin-bottom: 2.5rem;
 
   h2 {
     margin: 0 0 0.5rem 0;
     color: #2c3e50;
+    font-size: 1.8rem;
   }
 
   .username {
     color: #7f8c8d;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    font-size: 1.05rem;
   }
 
   .email {
     color: #3498db;
     font-size: 0.95rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     display: block;
   }
 
   .bio {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     line-height: 1.6;
     color: #444;
+    font-size: 1.05rem;
   }
 }
 
 .stats {
   display: flex;
-  gap: 2.5rem;
+  gap: 3rem;
   margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
+  padding: 1.5rem 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
 
   .stat {
     display: flex;
     flex-direction: column;
 
     .stat-value {
-      font-size: 1.8rem;
-      font-weight: bold;
+      font-size: 2rem;
+      font-weight: 800;
       color: #3498db;
+      line-height: 1;
     }
 
     .stat-label {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #7f8c8d;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-top: 0.2rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
     }
   }
 }
@@ -81,9 +89,10 @@
     gap: 0.6rem;
 
     .skill-tag {
-      background: #ecf0f1;
-      padding: 0.5rem 1rem;
-      border-radius: 20px; 
+      background: #f4f6f7;
+      border: 1px solid #e0e6ed;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
       font-size: 0.9rem;
       color: #2c3e50;
       font-weight: 500;
@@ -95,23 +104,36 @@
   h3 {
     margin-bottom: 1.5rem;
     color: #2c3e50;
+    font-size: 1.4rem;
   }
 
-  .no-reviews {
-    color: #7f8c8d;
-    font-style: italic;
-    background: #fff;
-    padding: 1.5rem;
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    background: #fdfdfd;
     border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    border: 1px dashed #ccc;
+    
+    p {
+      color: #7f8c8d;
+      font-size: 1rem;
+      margin: 0;
+    }
   }
 
   .review-card {
-    background: #fff;
-    padding: 1.5rem;
+    background: #ffffff;
+    padding: 1.5rem 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #eaeaea;
     margin-bottom: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
     .review-header {
       display: flex;
@@ -120,15 +142,16 @@
 
       strong {
         color: #2c3e50;
-        font-size: 1.05rem;
+        font-size: 1.1rem;
       }
 
       .stars {
         color: #f39c12;
         font-weight: bold;
         background: #fff8e1;
-        padding: 0.3rem 0.6rem;
+        padding: 0.4rem 0.8rem;
         border-radius: 4px;
+        font-size: 0.95rem;
       }
     }
   }
@@ -137,7 +160,8 @@
 .error-message {
   color: #e74c3c;
   background: #fadbd8;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 4px;
   margin-bottom: 1.5rem;
+  font-weight: 500;
 }

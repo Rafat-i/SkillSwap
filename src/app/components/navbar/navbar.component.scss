@@ -4,24 +4,31 @@
   justify-content: space-between;
   background: #2c3e50;
   padding: 0 2rem;
-  height: 60px;
+  height: 65px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 
   .navbar-brand a {
-    color: #fff;
-    font-size: 1.4rem;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
     text-decoration: none;
+    letter-spacing: 0.5px;
   }
 
   .navbar-links {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.5rem;
 
     a {
       color: #ecf0f1;
       text-decoration: none;
       font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
 
       &:hover,
       &.active {
@@ -29,17 +36,32 @@
       }
     }
 
-    button {
-      background: #e74c3c;
+    .btn-register {
+      background: #3498db;
       color: #fff;
-      border: none;
-      padding: 0.4rem 1rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 4px;
+
+      &:hover {
+        background: #2980b9;
+        color: #fff;
+      }
+    }
+
+    .btn-logout {
+      background: transparent;
+      color: #e74c3c;
+      border: 1px solid #e74c3c;
+      padding: 0.4rem 1.2rem;
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
 
       &:hover {
-        background: #c0392b;
+        background: #e74c3c;
+        color: #fff;
       }
     }
   }
