@@ -1,0 +1,22 @@
+<div class="stats-page">
+  <h1>Platform Statistics</h1>
+  
+  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="stats-container" *ngIf="stats">
+    <div class="stat-card">
+      <h3>Total Users</h3>
+      <p class="stat-number">{{ stats.total_users || 0 }}</p>
+    </div>
+    
+    <div class="stat-card">
+      <h3>Active Jobs</h3>
+      <p class="stat-number">{{ stats.active_jobs || 0 }}</p>
+    </div>
+
+    <div class="stat-card highlight">
+      <h3>Total Value Moved</h3>
+      <p class="stat-number">${{ stats.total_value_moved || 0 }}</p>
+    </div>
+  </div>
+</div>

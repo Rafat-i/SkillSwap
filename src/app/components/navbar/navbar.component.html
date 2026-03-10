@@ -3,6 +3,9 @@
     <a routerLink="/jobs">SkillSwap</a>
   </div>
   <div class="navbar-links">
+    
+    <a routerLink="/stats" routerLinkActive="active">Platform Stats</a>
+
     <ng-container *ngIf="isLoggedIn; else guestLinks">
       <a routerLink="/jobs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Browse Jobs</a>
       <a routerLink="/post-job" routerLinkActive="active">Post Job</a>
@@ -11,9 +14,11 @@
       <a routerLink="/profile/me" routerLinkActive="active">Profile</a>
       <button (click)="logout()">Logout</button>
     </ng-container>
+
     <ng-template #guestLinks>
       <a routerLink="/login" routerLinkActive="active">Login</a>
       <a routerLink="/register" routerLinkActive="active">Register</a>
     </ng-template>
+    
   </div>
 </nav>

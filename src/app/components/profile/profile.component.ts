@@ -22,11 +22,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getMe().subscribe({
-      next: (data) => {
-        this.user = data;
-        this.authService.setUser(data);
+      next: (meData) => {
 
-        this.jobService.getUserReviews(String(data.id)).subscribe({
+        this.authService.getUserByUsername(meData.username).subscribe({
+          next: (fullData) => {
+            this.user = fullData;
+            this.authService.setUser(fullData);
+          },
+          error: () => {
+            this.user = meData;
+          }
+        });
+
+        this.jobService.getUserReviews(String(meData.id)).subscribe({
           next: (reviewData) => {
             this.reviews = reviewData;
           },

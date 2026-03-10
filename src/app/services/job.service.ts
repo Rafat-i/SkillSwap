@@ -87,4 +87,8 @@ export class JobService {
   getUserReviews(userId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.BASE_URL}/reviews/user/${userId}`);
   }
+
+  getPlatformStats(): Observable<any> {
+    return this.http.get<any>(`${this.BASE_URL}/platform/stats`);
+  }
 }
