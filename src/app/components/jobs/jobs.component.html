@@ -12,14 +12,15 @@
     <form (ngSubmit)="applyFilters()">
       <div class="filter-group">
         <label for="category">Category</label>
-        <input
+        <select
           id="category"
           name="category"
           class="form-control"
-          type="text"
           [(ngModel)]="filters.category"
-          placeholder="e.g. Web Development, Design"
-        />
+        >
+          <option value="">All categories</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
       </div>
 
       <div class="filter-group budget-group">

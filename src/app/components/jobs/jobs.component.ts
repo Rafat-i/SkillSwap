@@ -13,6 +13,7 @@ import { JobService, Job } from '../../services/job.service';
 })
 export class JobsComponent implements OnInit {
   jobs: Job[] = [];
+  categories: string[] = [];
   errorMessage = '';
 
   filters = {
@@ -24,7 +25,19 @@ export class JobsComponent implements OnInit {
   constructor(private readonly jobService: JobService) {}
 
   ngOnInit(): void {
+    this.loadCategories();
     this.loadJobs();
+  }
+
+  loadCategories(): void {
+    this.jobService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (err) => {
+        console.error('Failed to load categories:', err);
+      }
+    });
   }
 
   loadJobs(): void {

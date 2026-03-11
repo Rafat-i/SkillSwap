@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { AuthService } from './auth.service';
 
 export interface Job {
@@ -38,6 +38,15 @@ export class JobService {
 
   searchJobs(filters: any = {}): Observable<Job[]> {
     return this.http.post<Job[]>(`${this.BASE_URL}/jobs/search`, filters);
+  }
+
+  getCategories(): Observable<string[]> {
+    return this.searchJobs({}).pipe(
+      map((jobs) => {
+        const unique = [...new Set(jobs.map((j) => j.category).filter(Boolean))];
+        return unique.sort();
+      })
+    );
   }
 
   createJob(title: string, description: string, budget: number, category: string): Observable<Job> {
