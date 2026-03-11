@@ -1,4 +1,4 @@
-# SkillSwap — Freelance Marketplace
+# SkillSwap
 ## By Rafat, Akeyla and Kevin
 
 SkillSwap is a fully functional Angular application. It integrates with the official SkillSwap REST API to provide a complete freelance marketplace where clients post jobs, freelancers submit proposals, and both parties move through a structured workflow ending in mutual reviews and automatic rating updates.
