@@ -1,24 +1,39 @@
 <nav class="navbar">
-  <div class="navbar-brand">
-    <a routerLink="/jobs">SkillSwap</a>
-  </div>
-  <div class="navbar-links">
-    
-    <a routerLink="/stats" routerLinkActive="active">Platform Stats</a>
+  <div class="navbar-inner">
+    <div class="navbar-brand">
+      <a routerLink="/jobs" class="brand-link">
+        <span class="brand-mark">SS</span>
+        <span class="brand-text">
+          <span class="brand-title">SkillSwap</span>
+          <span class="brand-subtitle">Freelance Marketplace</span>
+        </span>
+      </a>
+    </div>
 
-    <ng-container *ngIf="isLoggedIn; else guestLinks">
+    <div class="navbar-center">
       <a routerLink="/jobs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Browse Jobs</a>
-      <a routerLink="/post-job" routerLinkActive="active">Post Job</a>
+      <a routerLink="/post-job" routerLinkActive="active">Post a Job</a>
       <a routerLink="/jobs/my-postings" routerLinkActive="active">My Postings</a>
       <a routerLink="/my-bids" routerLinkActive="active">My Proposals</a>
-      <a routerLink="/profile/me" routerLinkActive="active">Profile</a>
-      <button class="btn-logout" (click)="logout()">Logout</button>
-    </ng-container>
+      <a routerLink="/stats" routerLinkActive="active">Platform Stats</a>
+    </div>
 
-    <ng-template #guestLinks>
-      <a routerLink="/login" routerLinkActive="active">Login</a>
-      <a routerLink="/register" routerLinkActive="active" class="btn-register">Register</a>
-    </ng-template>
-    
+    <div class="navbar-right">
+      <ng-container *ngIf="isLoggedIn; else guestLinks">
+        <div class="user-pill">
+          <div class="avatar-placeholder">U</div>
+          <div class="user-meta">
+            <span class="user-label">Account</span>
+            <a routerLink="/profile/me" class="user-link">View profile</a>
+          </div>
+          <button class="btn-logout" (click)="logout()">Logout</button>
+        </div>
+      </ng-container>
+
+      <ng-template #guestLinks>
+        <a routerLink="/login" class="btn-outline-light">Log in</a>
+        <a routerLink="/register" class="btn-primary-pill">Join</a>
+      </ng-template>
+    </div>
   </div>
 </nav>

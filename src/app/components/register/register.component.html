@@ -1,49 +1,97 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h2>Create an Account</h2>
+    <h2>Create an account</h2>
     <p class="subtitle">Join SkillSwap and start freelancing today.</p>
-    
+
     <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
     <div class="suggestion-message" *ngIf="suggestedUsername">
       Username taken. Suggested: <strong>{{ suggestedUsername }}</strong>
     </div>
 
     <form (ngSubmit)="submit()">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="e.g., Jane Doe" required />
+      <div class="form-group form-field">
+        <label class="form-label" for="name">Full name</label>
+        <input
+          class="form-control"
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="name"
+          placeholder="e.g., Jane Doe"
+          required
+        />
       </div>
-      
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" [(ngModel)]="username" placeholder="e.g., janedoe123" required />
+
+      <div class="form-group form-field">
+        <label class="form-label" for="username">Username</label>
+        <input
+          class="form-control"
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="e.g., janedoe123"
+          required
+        />
       </div>
-      
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="e.g., jane@example.com" required />
+
+      <div class="form-group form-field">
+        <label class="form-label" for="email">Email</label>
+        <input
+          class="form-control"
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="e.g., jane@example.com"
+          required
+        />
       </div>
-      
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Create a strong password" required />
+
+      <div class="form-group form-field">
+        <label class="form-label" for="password">Password</label>
+        <input
+          class="form-control"
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Create a strong password"
+          required
+        />
       </div>
-      
-      <div class="form-group">
-        <label for="bio">Bio</label>
-        <textarea id="bio" name="bio" [(ngModel)]="bio" placeholder="Tell clients about your background and expertise..."></textarea>
+
+      <div class="form-group form-field">
+        <label class="form-label" for="bio">Bio</label>
+        <textarea
+          class="form-control"
+          id="bio"
+          name="bio"
+          [(ngModel)]="bio"
+          placeholder="Tell clients about your background and expertise..."
+        ></textarea>
       </div>
-      
-      <div class="form-group">
-        <label for="skills">Skills (comma-separated)</label>
-        <input type="text" id="skills" name="skills" [(ngModel)]="skillsInput" placeholder="e.g., Angular, Node.js, UI/UX" />
+
+      <div class="form-group form-field">
+        <label class="form-label" for="skills">Skills (comma-separated)</label>
+        <input
+          class="form-control"
+          type="text"
+          id="skills"
+          name="skills"
+          [(ngModel)]="skillsInput"
+          placeholder="e.g., Angular, Node.js, UI/UX"
+        />
       </div>
-      
-      <button type="submit" class="btn-primary">Register</button>
+
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
-    
+
     <div class="auth-footer">
-      <p>Already have an account? <a routerLink="/login">Log In</a></p>
+      <p>
+        Already have an account?
+        <a routerLink="/login">Log in</a>
+      </p>
     </div>
   </div>
 </div>

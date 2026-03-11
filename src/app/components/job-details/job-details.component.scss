@@ -3,34 +3,6 @@
   max-width: 800px;
   margin: 0 auto;
 
-  .status-badge {
-    display: inline-block;
-    padding: 0.35rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-left: 0.8rem;
-    vertical-align: middle;
-
-    &.status-open {
-      background-color: #e8f8f5;
-      color: #1abc9c;
-      border: 1px solid #1abc9c;
-    }
-    &.status-in_progress {
-      background-color: #fef9e7;
-      color: #f39c12;
-      border: 1px solid #f39c12;
-    }
-    &.status-completed {
-      background-color: #f4f6f7;
-      color: #7f8c8d;
-      border: 1px solid #bdc3c7;
-    }
-  }
-
   .job-header {
     background: #ffffff;
     padding: 2rem;
@@ -69,18 +41,7 @@
     }
 
     .btn-edit {
-      padding: 0.6rem 1.2rem;
-      background: #3498db;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.2s ease;
-
-      &:hover {
-        background: #2980b9;
-      }
+      margin-top: 0.5rem;
     }
   }
 
@@ -136,18 +97,6 @@
 
     .btn-accept {
       margin-top: 1rem;
-      padding: 0.6rem 1.5rem;
-      background: #27ae60;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.2s ease;
-
-      &:hover {
-        background: #219a52;
-      }
     }
   }
 
@@ -157,19 +106,7 @@
   }
 
   .btn-complete {
-    padding: 0.8rem 2rem;
-    background: #8e44ad;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     font-size: 1rem;
-    font-weight: bold;
-    transition: background 0.2s ease;
-
-    &:hover {
-      background: #732d91;
-    }
   }
 
   .already-bid-card {
@@ -187,18 +124,6 @@
 
     .btn-withdraw {
       margin-top: 1.5rem;
-      padding: 0.6rem 1.5rem;
-      background: #e74c3c;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.2s ease;
-
-      &:hover {
-        background: #c0392b;
-      }
     }
   }
 
@@ -232,28 +157,51 @@
       }
 
       select {
-        padding: 0.6rem 1rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1rem;
-        background-color: #f9f9f9;
-        cursor: pointer;
+        max-width: 120px;
       }
     }
 
     .btn-submit-review {
-      padding: 0.6rem 1.5rem;
-      background: #27ae60;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-
-      &:hover {
-        background: #219a52;
-      }
+      margin-left: 0.25rem;
     }
+  }
+
+  .badge-status {
+    &.status-open {
+      background: #ecfdf3;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    &.status-in_progress {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fed7aa;
+    }
+
+    &.status-completed {
+      background: #f3f4f6;
+      color: #4b5563;
+      border: 1px solid #e5e7eb;
+    }
+  }
+
+  .client-link {
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  .proposal-author {
+    color: #111827;
+    font-weight: 600;
+  }
+
+  .proposal-price {
+    font-weight: 500;
+  }
+
+  .review-success-title {
+    color: #16a34a;
   }
 }
 

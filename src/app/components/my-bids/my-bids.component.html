@@ -1,5 +1,5 @@
 <div class="bids-page">
-  <h1>My Proposals</h1>
+  <h1>My proposals</h1>
 
   <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 
@@ -8,20 +8,20 @@
       
       <div class="bid-card-header">
         <h2>{{ p.job?.title || 'Job #' + p.job_id }}</h2>
-        <span class="status-badge" [ngClass]="'status-' + p.status">{{ p.status }}</span>
+        <span class="badge status-badge" [ngClass]="'status-' + p.status">{{ p.status }}</span>
       </div>
 
       <div class="bid-meta">
-        <p class="price"><strong>Proposed Price:</strong> ${{ p.price }}</p>
+        <p class="price"><strong>Proposed price:</strong> ${{ p.price }}</p>
         <p class="cover-letter"><strong>Cover letter:</strong> {{ p.cover_letter || p.message || '—' }}</p>
       </div>
       
       <div class="bid-actions" *ngIf="p.status === 'pending'">
         <button 
           type="button" 
-          class="btn-withdraw" 
+          class="btn btn-outline btn-withdraw" 
           (click)="withdrawProposal(p.id, $event)">
-          Withdraw Proposal
+          Withdraw proposal
         </button>
       </div>
       

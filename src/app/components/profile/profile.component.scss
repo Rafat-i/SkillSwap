@@ -46,6 +46,52 @@
   }
 }
 
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 10%, #38bdf8, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9fafb;
+  font-weight: 700;
+  font-size: 1.5rem;
+  box-shadow: 0 0 0 3px #eef2ff;
+}
+
+.profile-heading {
+  flex: 1;
+}
+
+.profile-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+
+  .stars {
+    font-size: 0.9rem;
+    color: #f59e0b;
+    background: #fffbeb;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid #fbbf24;
+  }
+
+  .completed {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+}
+
 .stats {
   display: flex;
   gap: 3rem;
