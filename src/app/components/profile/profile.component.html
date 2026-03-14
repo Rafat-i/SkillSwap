@@ -15,7 +15,8 @@
       </div>
       <div class="profile-rating">
         <div class="stars">
-          ⭐ {{ user.rating_avg || 0 }}/5
+          <app-star-rating [value]="user.rating_avg || 0"></app-star-rating>
+          <span class="rating-avg">{{ user.rating_avg || 0 }}/5</span>
         </div>
         <span class="completed">
           {{ user.completed_jobs || 0 }} completed jobs
@@ -53,7 +54,7 @@
     <div class="review-card" *ngFor="let review of reviews">
       <div class="review-header">
         <strong>{{ review.reviewer?.username || review.reviewer?.name || 'Client' }}</strong>
-        <span class="stars">⭐ {{ review.rating }}/5</span>
+        <app-star-rating [value]="review.rating"></app-star-rating>
       </div>
     </div>
   </div>

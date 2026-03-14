@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService, User } from '../../services/auth.service';
 import { JobService } from '../../services/job.service';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-public-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, StarRatingComponent],
   templateUrl: './public-profile.component.html',
   styleUrl: './public-profile.component.scss'
 })

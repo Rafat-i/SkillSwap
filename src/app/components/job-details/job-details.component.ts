@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { JobService, Proposal } from '../../services/job.service';
 import { AuthService } from '../../services/auth.service';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-job-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, StarRatingComponent],
   templateUrl: './job-details.component.html',
   styleUrl: './job-details.component.scss'
 })
@@ -25,7 +26,8 @@ export class JobDetailsComponent implements OnInit {
   acceptError = '';
   completeError = '';
   reviewError = '';
-  reviewRating = 3;
+  reviewRating = 0;
+  submittedRating = 0;
   hasReviewed = false;
   reviewTargetId = '';
   reviewTargetName = '';
@@ -214,11 +216,12 @@ export class JobDetailsComponent implements OnInit {
     if (!this.reviewTargetId) return;
     this.jobService.getUserReviews(this.reviewTargetId).subscribe({
       next: (reviews) => {
-        const alreadyReviewed = reviews.some((r: any) => 
+        const existing = reviews.find((r: any) => 
           String(r.job_id) === String(this.jobId) || String(r.job?.id) === String(this.jobId)
         );
-        if (alreadyReviewed) {
+        if (existing) {
           this.hasReviewed = true;
+          this.submittedRating = existing.rating;
           this.cdr.detectChanges();
         }
       }
@@ -231,7 +234,8 @@ export class JobDetailsComponent implements OnInit {
       return;
     }
     this.reviewError = '';
-    this.jobService.submitReview(this.jobId, this.reviewTargetId, Math.round(this.reviewRating)).subscribe({
+    this.submittedRating = Math.round(this.reviewRating);
+    this.jobService.submitReview(this.jobId, this.reviewTargetId, this.submittedRating).subscribe({
       next: () => {
         this.hasReviewed = true;
         this.successMessage = 'Review submitted successfully.';

@@ -124,6 +124,20 @@
 
     .btn-withdraw {
       margin-top: 1.5rem;
+      padding: 0.65rem 1.5rem;
+      border: 2px solid #e74c3c;
+      border-radius: 6px;
+      background: transparent;
+      color: #e74c3c;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        background: #e74c3c;
+        color: #fff;
+      }
     }
   }
 

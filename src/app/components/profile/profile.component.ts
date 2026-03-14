@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, User } from '../../services/auth.service';
 import { JobService } from '../../services/job.service';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, StarRatingComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
